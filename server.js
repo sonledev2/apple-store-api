@@ -31,6 +31,13 @@ app.use(morgan('common'));
 app.use('/v1/model', modelRoute);
 app.use('/v1/product', productRoute);
 
-app.listen(3000, () => {
-  console.log('Server is running at port 3000');
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Welcome to Apple-Store API.',
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log('Server is running');
 });
