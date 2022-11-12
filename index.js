@@ -10,7 +10,8 @@ const productRoute = require('./routes/product.route');
 
 dotenv.config();
 //Connect DB
-mongoose.connect(process.env.MONGODB_URL, {
+const url = process.env.MONGO_URL;
+mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
