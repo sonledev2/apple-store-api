@@ -28,8 +28,8 @@ app.use(cors());
 app.use(morgan('common'));
 
 //ROUTES
-app.use('/v1/model', modelRoute);
-app.use('/v1/product', productRoute);
+app.use('/model', modelRoute);
+app.use('/product', productRoute);
 
 app.get('/', (req, res) => {
   res.status(200).json({
