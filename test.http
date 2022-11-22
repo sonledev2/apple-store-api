@@ -1,0 +1,93 @@
+GET http://localhost:3000/api/products
+
+###
+
+GET http://localhost:3000/api/products/1
+
+###
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "name": "iPhone 14",
+    "description": "OLED 6.1 inch, Pin 2996 mAh",
+    "quantity": "1",
+    "modelId": "2"
+    
+}
+
+###
+
+PATCH http://localhost:3000/api/products/22
+Content-Type: application/json
+
+{
+    "name": "iPhone 12 Pro Max",
+    "description": "test PATCH",
+    "quantity": 22,
+    "modelId": 1
+}
+
+###
+DELETE http://localhost:3000/api/products/17
+
+###
+//Test Model
+
+GET http://localhost:3000/api/models
+
+###
+
+GET http://localhost:3000/api/models/2
+
+###
+POST http://localhost:3000/api/models
+Content-Type: application/json
+
+{
+    "name": "iPhone 11",
+    "categoryId": "1"
+}
+
+###
+
+PATCH http://localhost:3000/api/models/1
+Content-Type: application/json
+
+{
+    "name": "iPhone 6",
+    "categoryId": 1
+}
+
+###
+DELETE http://localhost:3000/api/models/4
+
+//Test Category
+
+###
+GET http://localhost:3000/api/categories
+
+###
+
+GET http://localhost:3000/api/categories/2
+
+###
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+
+{
+    "name": "iPad"
+}
+
+###
+
+PATCH http://localhost:3000/api/categories/1
+Content-Type: application/json
+
+{
+    "name": "iPhone 6",
+    "categoryId": 1
+}
+
+###
+DELETE http://localhost:3000/api/categories/4
