@@ -1,27 +1,15 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 const app = express();
-const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const productRoute = require('./src/routes/product.route');
 const modelRoute = require('./src/routes/model.route');
 const categoryRoute = require('./src/routes/category.route');
-
-// dotenv.config();
-//Connect DB
-// const url = process.env.MONGO_URL;
-// mongoose.connect(url, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error: '));
-// db.once('open', function () {
-//   console.log('Connected successfully');
-// });
+const userRoute = require('./src/routes/user.route');
+const imageRoute = require('./src/routes/image.route');
 
 app.use(express.json());
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -30,13 +18,25 @@ app.use(morgan('common'));
 
 app.use(
   express.urlencoded({
+    limit: '50mb',
     extended: true,
   })
 );
+
+app.use(
+  session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true,
+  })
+);
+
 //ROUTES
 app.use('/api', productRoute);
 app.use('/api', modelRoute);
 app.use('/api', categoryRoute);
+app.use('/api', userRoute);
+app.use('/api', imageRoute);
 
 app.get('/', (req, res) => {
   res.status(200).json({

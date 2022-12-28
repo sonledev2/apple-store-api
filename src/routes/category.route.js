@@ -8,14 +8,14 @@ const {
 
 const route = require('express').Router();
 
-route.get('/categories', getCategories);
+route.get('/category', getCategories);
 
-route.get('/categories/:id', getCategory);
+route.get('/category/:id', getCategory);
 
-route.post('/categories', createCategory);
+route.post('/category', createCategory);
 
-route.patch('/categories/:id', updateCategory);
+route.patch('/category/:id', updateCategory);
 
-route.delete('/categories/:id', deleteCategory);
+route.delete('/category/:id', deleteCategory);
 
 module.exports = route;

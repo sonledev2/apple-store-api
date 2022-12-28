@@ -4,18 +4,27 @@ const {
   getProduct,
   deleteProduct,
   updateProduct,
+  getSaleProduct,
+  getIPhoneProduct,
+  getIpadProduct,
 } = require('../controllers/product.controller');
 
 const route = require('express').Router();
 
+route.get('/product/sale', getSaleProduct);
+
+route.get('/product/iphone', getIPhoneProduct);
+
+route.get('/product/ipad', getIpadProduct);
+
 route.get('/products', getProducts);
 
-route.get('/products/:id', getProduct);
+route.post('/product', createProduct);
 
-route.post('/products', createProduct);
+route.get('/product/:id', getProduct);
 
-route.patch('/products/:id', updateProduct);
+route.patch('/product/:id', updateProduct);
 
-route.delete('/products/:id', deleteProduct);
+route.delete('/product/:id', deleteProduct);
 
 module.exports = route;

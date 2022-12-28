@@ -4,7 +4,7 @@ const prisma = require('../models/prisma');
 const getProducts = async (req, res, next) => {
   try {
     const products = await prisma.product.findMany({
-      include: { model: true },
+      include: { model: true, options: true },
     });
     res.json(products);
   } catch (error) {
@@ -27,15 +27,84 @@ const getProduct = async (req, res, next) => {
   }
 };
 
+const getSaleProduct = async (req, res, next) => {
+  try {
+    // const { id } = req.params;
+    const products = await prisma.product.findMany({
+      where: {
+        status: { has: 'sale' },
+      },
+      // include: { model: true },
+    });
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getIPhoneProduct = async (req, res, next) => {
+  try {
+    // const { id } = req.params;
+    const products = await prisma.product.findMany({
+      where: {
+        model: {
+          categoryId: 1,
+        },
+      },
+      include: { model: true },
+    });
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getIpadProduct = async (req, res, next) => {
+  try {
+    // const { id } = req.params;
+    const products = await prisma.product.findMany({
+      where: {
+        model: {
+          categoryId: 2,
+        },
+      },
+      include: { model: true },
+    });
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createProduct = async (req, res, next) => {
   try {
-    const { name, description, quantity, modelId } = req.body;
+    const {
+      name,
+      image,
+      description,
+      price,
+      discountPrice,
+      quantity,
+      // modelId,
+    } = req.body;
+    const productNameExist = await prisma.product.findUnique({
+      where: {
+        name: name,
+      },
+    });
+    if (productNameExist)
+      return res.status(200).json({ message: 'Productname_exist' });
     const product = await prisma.product.create({
       data: {
         name: name,
+        image: image,
         description: description,
+        price: parseInt(price),
+        discountPrice: parseInt(discountPrice),
         quantity: parseInt(quantity),
-        modelId: parseInt(modelId),
+        // status: status,
+        // url: url,
+        // modelId: parseInt(modelId),
       },
       include: {
         model: true,
@@ -82,6 +151,9 @@ const deleteProduct = async (req, res, next) => {
 module.exports = {
   getProducts,
   getProduct,
+  getSaleProduct,
+  getIPhoneProduct,
+  getIpadProduct,
   createProduct,
   updateProduct,
   deleteProduct,

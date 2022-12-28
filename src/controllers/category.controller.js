@@ -3,7 +3,9 @@ const prisma = require('../models/prisma');
 
 const getCategories = async (req, res, next) => {
   try {
-    const categories = await prisma.category.findMany({});
+    const categories = await prisma.category.findMany({
+      include: { model: true },
+    });
     res.json(categories);
   } catch (error) {
     next(error);
@@ -17,6 +19,7 @@ const getCategory = async (req, res, next) => {
       where: {
         id: Number(id),
       },
+      include: { model: true },
     });
     res.json(category);
   } catch (error) {
